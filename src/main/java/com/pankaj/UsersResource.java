@@ -3,6 +3,7 @@ package com.pankaj;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,6 +55,11 @@ public class UsersResource {
 		
 		usersMapper.delete(users);
 		return usersMapper.findAll();
+	}
+	
+	@GetMapping("/callUsers/{id}")
+	public List<Users> callProcedure(@PathVariable("id") Integer id){
+		return usersMapper.callProcedure(id);
 	}
 	
 

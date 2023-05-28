@@ -5,9 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.mapping.StatementType;
 
 @Mapper
 public interface UsersMapper {
@@ -27,4 +29,8 @@ public interface UsersMapper {
 
 	@Delete("delete from userss where name=#{name}")
 	void delete(Users users);
+	
+	@Select(value = "{CALL users.userById(#{id, mode=IN, jdbcType=INTEGER})}")
+	@Options(statementType = StatementType.CALLABLE)
+	List<Users> callProcedure(int id); 
 }
